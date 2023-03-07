@@ -1,6 +1,6 @@
 # ce-samples-post-authn project
 
-This project contains to modules.
+This project contains two modules.
 - ce-samples-post-authn-ui-react (Post AuthN UI React)
 - ce-samples-post-authn-api-go (Post AuuthN API Go)
 
