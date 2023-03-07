@@ -12,13 +12,13 @@ export default function getSessionAndUser(loginId, loginState, setSession, setSe
 
   api.getSessionAndUser(query)
     .then(res => {
-      console.log('getSessionAndUser:', res);
+      console.log('getSessionAndUser Success:', res);
       setSession(res)
       setSessionError( '' );
       setSessionLoading(false);
     })
     .catch(err => {
-      console.log('getSessionAndUser error:', err.response?.status, err.response?.statusText);
+      console.log('getSessionAndUser Failure:', err.response?.status, err.response?.statusText);
       setSessionError(`${err.response?.status} ${err.response?.statusText}`);
       setSessionLoading(false);
     });

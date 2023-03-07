@@ -11,12 +11,12 @@ export default function completeAuthentication( organizationId, userId, loginId,
   setCompleteLoading(true)
   api.completeAuthentication(query)
     .then(res => {
-      console.log('completeResponseJson:', res);
+      console.log('completeAuthentication Success:', res);
       setCompleteLoading(false);
       window.location.replace(res.redirect_to);
     })
     .catch(err => {
-      console.log('API error:', err);
+      console.log('completeAuthentication Failure:', err);
       setCompleteError('Error: unable to complete the Authentication process.');
       setCompleteLoading(false);
     });
