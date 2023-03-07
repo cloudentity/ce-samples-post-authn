@@ -20,7 +20,9 @@ export default function abortAuthentication( status, error, errorDescription, lo
     .then(res => {
       if( res.redirect_to ) {
         console.log('Abort Success:', res);
-//        window.location.replace(res.redirect_to);
+
+        // If you want your UI to return to the ACP failure page, add the following code
+        // window.location.replace(res.redirect_to);
       } else {
         console.log('Abort Failed ', res)
         throw new Error("abortAuthentication failed")

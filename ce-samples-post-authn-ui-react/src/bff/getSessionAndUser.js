@@ -1,6 +1,4 @@
-//import { useEffect } from 'react'
 import { api } from '../api/api';
-//import abortAuthentication from './abortAuthentication';
 
 export default function getSessionAndUser(loginId, loginState, setSession, setSessionLoading, setSessionError) {
 

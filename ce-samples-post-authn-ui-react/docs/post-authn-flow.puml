@@ -52,7 +52,7 @@ end
 group If user not found
   post_authn_api <- customer_api: Return User Not Found
   post_authn_ui <- post_authn_api: Return User Not Found
-  post_authn_ui -> post_authn_ui: Display User Not Found
+  post_authn_ui -> post_authn_ui: Display request to be added
 end
 
 group If error
