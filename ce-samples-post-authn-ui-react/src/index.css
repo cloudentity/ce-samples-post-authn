@@ -36,6 +36,11 @@ pre {
   background-color: #ffcccc !important;
 }
 
+.message {
+  font-weight: 700;
+  background-color: #ccccff !important;
+}
+
 .header-container {
   display: flex;
   align-items: center;
