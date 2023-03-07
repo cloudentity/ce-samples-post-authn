@@ -2,14 +2,11 @@ import React, { useState, useEffect } from 'react'
 
 import getSessionAndUser from "./bff/getSessionAndUser"
 import completeAuthentication from "./bff/completeAuthentication"
-import abortAuthentication from './bff/abortAuthentication';
 
 import Header from "./components/Header"
+import UserError from "./errors/UserError"
 import Loading from "./components/Loading"
-import ErrorSession from "./errors/ErrorSession"
-import SelectOrganization from "./components/SelectOrganization"
-import OrganizationSelection from "./components/OrganizationSelection"
-import Debug from "./components/Debug"
+import Organizations from "./components/Organizations"
 
 let completeSemaphore = 0
 
@@ -21,14 +18,15 @@ export default  function App() {
 
   const [session, setSession] = useState([]);
   const [sessionLoading, setSessionLoading] = useState(true);
-  const [sessionError, setSessionError] = useState('');
   const [completeLoading, setCompleteLoading] = useState(true);
-  const [completeError, setCompleteError] = useState('');
+  const [completeError, setCompleteError] = useState("");
   const [organizationId, setOrganizationId] = useState("")
+  const [userError, setUserError] = useState("");
+  const [userCorrection, setUserCorrection] = useState("");
 
   useEffect(() => {
     console.log("Call getSessionAndUser");
-    getSessionAndUser( loginId, loginState, setSession, setSessionLoading, setSessionError );
+    getSessionAndUser( loginId, loginState, setSession, setSessionLoading, setUserError, setUserCorrection );
   }, []);
 
   const handleSubmit = () => {
@@ -47,9 +45,16 @@ export default  function App() {
   return (
     <>
      <Header />
-     <ErrorSession loading={sessionLoading} error={sessionError} />
+     <UserError loading={sessionLoading} error={userError} correction={userCorrection}/>
      <Loading loading={sessionLoading} />
-     <SelectOrganization loading={sessionLoading} error={sessionError} session={session} organizationId={organizationId} onChange={setOrganizationId} submit={handleSubmit}/>
+     <Organizations
+       loading={sessionLoading}
+       error={userError}
+       session={session}
+       organizationId={organizationId}
+       onChange={setOrganizationId}
+       submit={handleSubmit}
+     />
     </>
   );
 }

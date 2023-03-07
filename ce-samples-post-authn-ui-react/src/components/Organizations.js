@@ -1,6 +1,6 @@
 import Debug from "./Debug"
 
-export default function SelectOrganization(props) {
+export default function Organizations(props) {
 
   return (
    <>

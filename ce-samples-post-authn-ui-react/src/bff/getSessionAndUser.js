@@ -1,6 +1,6 @@
 import { api } from '../api/api';
 
-export default function getSessionAndUser(loginId, loginState, setSession, setSessionLoading, setSessionError) {
+export default function getSessionAndUser(loginId, loginState, setSession, setSessionLoading, setUserError, setUserCorrection) {
 
   if(!loginId || !loginState) {
     throw new Error("Missing Parameters")
@@ -12,14 +12,19 @@ export default function getSessionAndUser(loginId, loginState, setSession, setSe
 
   api.getSessionAndUser(query)
     .then(res => {
+      setSessionLoading(false);
       console.log('getSessionAndUser Success:', res);
       setSession(res)
-      setSessionError( '' );
-      setSessionLoading(false);
+      setUserError( '' );
     })
     .catch(err => {
-      console.log('getSessionAndUser Failure:', err.response?.status, err.response?.statusText);
-      setSessionError(`${err.response?.status} ${err.response?.statusText}`);
       setSessionLoading(false);
+      console.log('getSessionAndUser Failure:', err.response?.status, err.response?.statusText);
+      if( err.response?.status === 404 ) {
+        setUserError("No organizations are assigned to you");
+        setUserCorrection("Please ask your supervisor to assign an organization to your account.");
+      } else {
+        throw new Error(`${err.response?.status} ${err.response?.statusText}`)
+      }
     });
 }
