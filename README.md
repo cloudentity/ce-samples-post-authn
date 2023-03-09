@@ -2,11 +2,13 @@
 
 This project contains two modules.
 - ce-samples-post-authn-ui-react (Post AuthN UI React)
+  [Readme UI React](ce-samples-post-authn-ui-react/README-npm.md)
 - ce-samples-post-authn-api-go (Post AuuthN API Go)
+  [Readme API GO](ce-samples-post-authn-api-go/README.md)
 
 ## System Sequence Diagram
 
-![](./ce-samples-post-authn-ui-react/docs/post-authn-flow.png)
+![Sequence Diagram](./ce-samples-post-authn-ui-react/docs/post-authn-flow.png)
 
 ## ce-samples-post-authn-ui-react
 
@@ -27,22 +29,6 @@ The module contains the UI code written in React.
     - Display error directing user to next steps
   - System error
     - Display error
-
-### Run the code
-
-```
-./run.sh
-```
-
-## ce-samples-post-authn-api-go
-
-This module contains the API code written in GoLang.
-
-### Functionality
-
-- Provide server side authentication with ACP
-- Keep ACP and customer API credentials secret
-- Package up ACP session and customer API response and return it to UI
 
 ### Run the code
 
