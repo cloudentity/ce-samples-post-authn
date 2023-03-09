@@ -1,7 +1,17 @@
-# ce-samples-post-authn
+## ce-samples-post-authn-api-go
 
-This post-authn project provides 4 use cases
-- User has multiple organizations: User is prompted to select one then returned back to ACP
-- User has one organization: User ogranization is automatically selected returned back to ACP
-- User has zero organizations: Message is displayed to user to request to be added to customer's system
-- System failure: An error page is displayed
+This module contains the server side API code written in GoLang.
+
+### Functionality
+
+- Provide server side authentication with ACP
+- Package up ACP session and customer API response and return it to UI
+- Stubbed out call to customer API
+- Provide ACP getSession, completePostAuthn, abortPostAuthn
+- Keep ACP and customer API credentials secret
+
+### Run the code
+
+```
+./run.sh
+```
