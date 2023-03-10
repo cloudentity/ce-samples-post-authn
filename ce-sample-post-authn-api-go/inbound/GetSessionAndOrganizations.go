@@ -2,6 +2,7 @@ package inbound
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/ce-samples-post-authn/ce-sample-post-authn-api-go/outboundAcp"
@@ -20,18 +21,17 @@ func GetSessionAndOrganizations(c *gin.Context) {
 
 	acpToken, acpErr := outboundAcp.AuthnAcpWrapper()
 	if acpErr != nil {
-		fmt.Println("AuthnAcpWrapper error:", acpErr)
+		log.Print("AuthnAcpWrapper error:", acpErr)
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
 	}
 
 	session, sessionErr := outboundAcp.GetAcpSession(loginId, loginState, acpToken)
 	if sessionErr != nil {
-		fmt.Println("GetAcpSession error:", sessionErr)
+		log.Print("GetAcpSession error:", sessionErr)
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
 	}
-	fmt.Println("sessionErr", sessionErr)
 
 	userId := gjson.Get(session, "authentication_context.email").String()
 	fmt.Println("userId: ", userId)

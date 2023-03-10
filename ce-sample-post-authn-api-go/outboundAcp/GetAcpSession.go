@@ -2,10 +2,8 @@ package outboundAcp
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 
 	"github.com/ce-samples-post-authn/ce-sample-post-authn-api-go/config"
@@ -15,7 +13,6 @@ func GetAcpSession(loginId string, loginState string, acpToken string) (string, 
 
 	req, reqErr := http.NewRequest("GET", config.SystemApiUrl+"/post-authn/"+loginId, nil)
 	if reqErr != nil {
-		log.Fatal(reqErr)
 		return "", reqErr
 	}
 
@@ -25,6 +22,7 @@ func GetAcpSession(loginId string, loginState string, acpToken string) (string, 
 	query.Add("login_state", loginState)
 	req.URL.RawQuery = query.Encode()
 
+	// Uncomment for debugging purposes
 	// debug.LogRequest(req, "GetAcpSession")
 
 	client := &http.Client{}
@@ -32,26 +30,22 @@ func GetAcpSession(loginId string, loginState string, acpToken string) (string, 
 	fmt.Println("GetAcpSession Status: " + resp.Status)
 
 	if respErr != nil {
-		log.Fatal(respErr)
 		return "", respErr
 	}
 
 	defer resp.Body.Close()
 	respBody, bodyErr := ioutil.ReadAll(resp.Body)
 	if bodyErr != nil {
-		log.Fatal(bodyErr)
 		return "", bodyErr
 	}
 
 	if resp.StatusCode != 200 {
-		fmt.Println("GetAcpSession error:")
-		return "", errors.New(string(respBody))
+		return "", fmt.Errorf("%d %s", resp.StatusCode, string(respBody))
 	}
 
 	var respData map[string]interface{}
 	jsonErr := json.Unmarshal([]byte(respBody), &respData)
 	if jsonErr != nil {
-		log.Fatal(jsonErr)
 		return "", jsonErr
 	}
 

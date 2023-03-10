@@ -21,12 +21,16 @@ func CompleteAuthn(c *gin.Context) {
 
 	acpToken, acpErr := outboundAcp.AuthnAcpWrapper()
 	if acpErr != nil {
+		log.Print("AuthnAcpWrapper error:", acpErr)
 		c.AbortWithStatus(http.StatusInternalServerError)
+		return
 	}
 
 	session, sessonErr := outboundAcp.GetAcpSession(loginId, loginState, acpToken)
 	if sessonErr != nil {
+		log.Print("GetAcpSession error:", sessonErr)
 		c.AbortWithStatus(http.StatusInternalServerError)
+		return
 	}
 
 	userId := gjson.Get(session, "authentication_context.email").String()
@@ -36,20 +40,23 @@ func CompleteAuthn(c *gin.Context) {
 	fmt.Println("userRecord: ", userRecord)
 
 	if !userIsFound {
-		log.Fatal(`User ${userId} not found in Custom Organizations`)
+		log.Print(`User ${userId} not found in Custom Organizations`)
 		c.AbortWithStatus(http.StatusNotFound)
+		return
 	}
 
 	organization, organizationErr := outboundCustom.GetOrganizationFromUserRecord(organizationId, userRecord)
 	if organizationErr != nil {
-		log.Fatal(organizationErr)
+		log.Print("GetOrganizationFromUserRecord error:", organizationErr)
 		c.AbortWithStatus(http.StatusNotFound)
+		return
 	}
 
 	completeBody, completeErr := outboundAcp.CompleteAcpAuthn(organizationId, organization, loginId, loginState, acpToken)
 	if completeErr != nil {
-		log.Fatal(completeErr)
+		log.Print("CompleteAcpAuthn error:", completeErr)
 		c.AbortWithStatus(http.StatusInternalServerError)
+		return
 	}
 
 	fmt.Println("completeAcpAuthn Body: ", string(completeBody))

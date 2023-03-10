@@ -16,6 +16,7 @@ func AuthnAcpWrapper() (string, error) {
 		return tokenCached, nil
 	}
 
+	// Client Secret Basic should be the default for Extension Applications
 	token, tokenError := AuthnAcpClientSecretBasic()
 	// token, tokenError := AuthnAcpClientSecretPost()
 

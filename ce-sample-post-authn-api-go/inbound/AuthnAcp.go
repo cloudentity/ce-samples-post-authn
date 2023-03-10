@@ -2,6 +2,7 @@ package inbound
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/ce-samples-post-authn/ce-sample-post-authn-api-go/outboundAcp"
@@ -13,7 +14,9 @@ func AuthnAcp(c *gin.Context) {
 	fmt.Println("----- AuthnAcp")
 	acpToken, acpErr := outboundAcp.AuthnAcpWrapper()
 	if acpErr != nil {
+		log.Print("AuthnAcp acpErr:", acpErr)
 		c.AbortWithStatus(http.StatusInternalServerError)
+		return
 	}
 
 	fmt.Println("AuthnAcp Token: ", acpToken)

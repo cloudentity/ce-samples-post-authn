@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"strings"
 
@@ -27,7 +26,6 @@ func CompleteAcpAuthn(organizationId string, organization outboundCustom.Organiz
 
 	requestJson, jsonErr := json.Marshal(requestValues)
 	if jsonErr != nil {
-		log.Fatal(jsonErr)
 		return nil, jsonErr
 	}
 	fmt.Println("requestJson: ", string(requestJson))
@@ -35,18 +33,18 @@ func CompleteAcpAuthn(organizationId string, organization outboundCustom.Organiz
 
 	req, reqErr := http.NewRequest("POST", config.SystemApiUrl+"/post-authn/"+loginId+"/complete", requestBody)
 	if reqErr != nil {
-		log.Fatal(reqErr)
 		return nil, reqErr
 	}
+
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", "Bearer "+acpToken)
 
+	// Uncomment for debugging purposes
 	// debug.LogRequest(req, "CompleteAcpAuthn")
 
 	client := &http.Client{}
 	resp, respErr := client.Do(req)
 	if respErr != nil {
-		log.Fatal(respErr)
 		return nil, respErr
 	}
 	fmt.Println("completeAcpAuthn Status: ", resp.Status, resp.Body)
@@ -54,7 +52,7 @@ func CompleteAcpAuthn(organizationId string, organization outboundCustom.Organiz
 	defer resp.Body.Close()
 	respBody, bodyErr := ioutil.ReadAll(resp.Body)
 	if bodyErr != nil {
-		log.Fatal(bodyErr)
+		return nil, bodyErr
 	}
 
 	return respBody, nil
