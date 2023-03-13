@@ -31,7 +31,7 @@ func CompleteAcpAuthn(organizationId string, organization outboundCustom.Organiz
 	fmt.Println("requestJson: ", string(requestJson))
 	requestBody := strings.NewReader(string(requestJson))
 
-	req, reqErr := http.NewRequest("POST", config.SystemApiUrl+"/post-authn/"+loginId+"/complete", requestBody)
+	req, reqErr := http.NewRequest("POST", config.ApiUrl+"/post-authn/"+loginId+"/complete", requestBody)
 	if reqErr != nil {
 		return nil, reqErr
 	}

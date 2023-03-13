@@ -18,7 +18,7 @@ func AuthnAcpClientSecretBasic() (string, error) {
 	reqData.Set("grant_type", "client_credentials")
 	reqBody := strings.NewReader(reqData.Encode())
 
-	req, reqErr := http.NewRequest("POST", config.SystemAuthnUrl, reqBody)
+	req, reqErr := http.NewRequest("POST", config.AuthnUrl, reqBody)
 	if reqErr != nil {
 		return "", reqErr
 	}

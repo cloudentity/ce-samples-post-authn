@@ -19,7 +19,7 @@ func AuthnAcpClientSecretPost() (string, error) {
 	reqData.Set("client_secret", config.AcpSecrets.ClientSecret)
 	reqBody := strings.NewReader(reqData.Encode())
 
-	req, reqErr := http.NewRequest("POST", config.SystemAuthnUrl, reqBody)
+	req, reqErr := http.NewRequest("POST", config.AuthnUrl, reqBody)
 	if reqErr != nil {
 		return "", reqErr
 	}

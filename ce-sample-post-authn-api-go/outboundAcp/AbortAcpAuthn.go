@@ -16,7 +16,7 @@ func AbortAcpAuthn(inboundJson string, acpToken string) ([]byte, error) {
 	fmt.Println("loginId: ", loginId)
 
 	requestBody := strings.NewReader(inboundJson)
-	req, reqErr := http.NewRequest("POST", config.SystemApiUrl+"/post-authn/"+loginId+"/abort", requestBody)
+	req, reqErr := http.NewRequest("POST", config.ApiUrl+"/post-authn/"+loginId+"/abort", requestBody)
 	if reqErr != nil {
 		return nil, reqErr
 	}

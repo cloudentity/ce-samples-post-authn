@@ -11,7 +11,7 @@ import (
 
 func GetAcpSession(loginId string, loginState string, acpToken string) (string, error) {
 
-	req, reqErr := http.NewRequest("GET", config.SystemApiUrl+"/post-authn/"+loginId, nil)
+	req, reqErr := http.NewRequest("GET", config.ApiUrl+"/post-authn/"+loginId, nil)
 	if reqErr != nil {
 		return "", reqErr
 	}
