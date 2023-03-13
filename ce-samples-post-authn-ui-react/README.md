@@ -18,6 +18,10 @@ The module contains the client side UI code written in React.
   - System error
     - Display error
 
+### Configure extension in ACP 
+
+[Configure extension in ACP](https://cloudentity.com/developers/howtos/extensions/custom_apps/)
+
 ### Run the code
 
 ```
