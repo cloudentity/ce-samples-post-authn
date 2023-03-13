@@ -54,7 +54,7 @@ const IssuerUrl string = "https://[TENANT_ID].us.authz.cloudentity.io/[TENANT_ID
 
 ### Configure the ApiUrl
 
-In the `config/config.go` file, construct the ApiUrl using the following format.
+Construct the `ApiUrl` using the following format.
 
 ```
 https://[TENANT_ID].us.authz.cloudentity.io/api/system/[TENANT_ID]
@@ -72,7 +72,7 @@ In the ACP UI, get the Client ID and client Secret from your application configu
 
 https://cloudentity.com/developers/howtos/extensions/custom_apps/#register-application-in-cloudentity
 
-In the `config/secrets.go` file, copy the value into `ClientId` and `ClientSecret`.
+In the `config/secrets.go` file, copy the values into `ClientId` and `ClientSecret`.
 
 ```
 	ClientId:     "12345678901234567890",
