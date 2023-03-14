@@ -49,7 +49,7 @@ https://cloudentity.com/developers/howtos/extensions/custom_apps/#register-appli
 In the `config/config.go` file, copy the `Issurer URL` into the `IssuerUrl`.
 
 ```
-const IssuerUrl string = "https://[TENANT_ID].us.authz.cloudentity.io/[TENANT_ID]/system/oauth2/token"
+const IssuerUrl string = "https://[TENANT_ID].us.authz.cloudentity.io/[TENANT_ID]/system"
 ```
 
 ### Configure the ApiUrl
@@ -121,3 +121,4 @@ $ curl -k https://localhost:8443/api/authn
 eyJhbGciOiJFUzI1NiIsImtpZCI6IjgyMDkxMjIwMTQzNDQ0ODE3MTc0ODE0MDMzNDAwNTE2NTExNDk1IiwidHlwIjoiSldU
 ...
 ```
+
