@@ -4,7 +4,7 @@ export default function Organizations(props) {
 
   return (
    <>
-     {!props.loading && (props.error === '') && props.session.organizations?.length > 1 &&
+     {!props.loading && (props.error === '') && props.session.organizations.length > 1 &&
       <>
       <div className="card">
         <h3 className="header">Just one more step</h3>

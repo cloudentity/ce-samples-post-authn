@@ -3,16 +3,16 @@
 title "Post AuthN Organization Selection"
 scale 1.09
 autonumber
-participant acp_ui as "ACP UI\nCloudentity" 
+participant acp_ui as "ACP UI\nCloudentity"
 participant acp_api as "ACP API\nCloudentity"
-participant post_authn_ui as "Post AuthN UI\nReact"
-participant post_authn_api as "Post AuthN API\nGo"
-participant customer_api as "Customer API\n"
+participant post_authn_ui as "Post AuthN UI\nCustomer"
+participant post_authn_api as "Post AuthN API\nCustomer"
+participant customer_api as "Organizations API\nCustomer"
 
 acp_ui <-->> acp_api: Authenticate User
 
 acp_ui <- acp_api: Post-AuthN Redirect
-post_authn_ui <- acp_ui: Redirect Post-AuthN 
+post_authn_ui <- acp_ui: Redirect Post-AuthN
 post_authn_ui -> post_authn_api: Request User and Organizations
 
 acp_api <- post_authn_api: Request AuthN System
@@ -52,12 +52,12 @@ end
 group If user not found
   post_authn_api <- customer_api: Return User Not Found
   post_authn_ui <- post_authn_api: Return User Not Found
-  post_authn_ui -> post_authn_ui: Display request to be added
+  post_authn_ui -> post_authn_ui: Display User Error
 end
 
 group If error
-  post_authn_ui -> post_authn_ui: Error detected
-  post_authn_ui -> post_authn_ui: Display Error
+  post_authn_ui -> post_authn_ui: System Failure detected
+  post_authn_ui -> post_authn_ui: Display System Error
 end
 
 @enduml
