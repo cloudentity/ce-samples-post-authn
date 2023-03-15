@@ -17,7 +17,7 @@ Post AuthN UI React
 
 Post AuuthN API Go
 
-- [ce-samples-post-authn-api-go](ce-samples-post-authn-api-go/README.md)
+- [ce-samples-post-authn-api-go](ce-sample-post-authn-api-go/README.md)
 
 ## Configure ACP process
 
@@ -29,4 +29,4 @@ Post AuuthN API Go
 
 ## Post-AuthN Organization Selection Sequence Diagram
 
-![Sequence Diagram](./ce-samples-post-authn-ui-react/docs/post-authn-flow.png)
+![Sequence Diagram](./docs/post-authn-flow.png)
