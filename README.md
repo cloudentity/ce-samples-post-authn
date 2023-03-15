@@ -30,4 +30,3 @@ Post AuuthN API Go
 ## Post-AuthN Organization Selection Sequence Diagram
 
 ![Sequence Diagram](./ce-samples-post-authn-ui-react/docs/post-authn-flow.png)
-
