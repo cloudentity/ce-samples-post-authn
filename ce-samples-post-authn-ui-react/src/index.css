@@ -9,36 +9,18 @@ body, select, button {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.button {
-  margin-top: 20px;
-}
-
-.debug {
-  font-size: 12pt;
-}
-
-hr {
-  margin-top: 40px;
-  xcolor: white;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-pre {
-  background-color: #EEEEEE;
-}
-
-.error {
-  font-weight: 700;
-  background-color: #ffcccc !important;
-}
-
-.message {
-  font-weight: 700;
-  background-color: #ccccff !important;
+.header {
+  padding: 16px 32px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 32px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgba(0, 0, 0, 0.87);
 }
 
 .header-container {
@@ -66,18 +48,35 @@ pre {
   padding: 32px;
 }
 
-.header {
-  padding: 16px 32px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  text-align: center;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 32px;
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: rgba(0, 0, 0, 0.87);
+.button {
+  margin-top: 20px;
+}
+
+.debug {
+  font-size: 12pt;
+}
+
+hr {
+  margin-top: 40px;
+  xcolor: white;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+pre {
+  background-color: #EEEEEE;
+}
+
+.message {
+  font-weight: 700;
+  background-color: #ccccff !important;
+}
+
+.error {
+  font-weight: 700;
+  background-color: #ffcccc !important;
 }
 
 .select-title {

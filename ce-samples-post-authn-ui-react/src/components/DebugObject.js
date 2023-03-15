@@ -1,4 +1,4 @@
-export default function Debug(props) {
+export default function DebugObject(props) {
 
   return (
     <>

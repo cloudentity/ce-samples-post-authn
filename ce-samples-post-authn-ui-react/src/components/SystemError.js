@@ -1,5 +1,5 @@
 import React from "react"
-import Header from "../components/Header"
+import DebugObject from "../components/DebugObject"
 
 class SystemError extends React.Component {
   constructor(props) {
@@ -12,13 +12,13 @@ class SystemError extends React.Component {
   componentDidCatch(error, errorInfo) { console.log(`SystemError: ${error} ----- ${errorInfo}`); }
 
   render() {
-    if (this.state.hasError) { return (
+    if (this.state.hasError || this.props.errorObj?.code) { return (
       <>
-        <Header />
         <div className="card error">
-          <h3>Shut'er down Clancy, She's pumpin' mud!</h3>
+          <p>An unexpected error occurred.</p>
           <p>Please contact support.</p>
         </div>
+        <DebugObject name="UserError Object" data={this.props.errorObj}/>
       </>
       )
     }

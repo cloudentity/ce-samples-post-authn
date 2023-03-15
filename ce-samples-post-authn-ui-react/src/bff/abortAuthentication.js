@@ -2,9 +2,7 @@ import React from "react"
 import { useQuery } from 'react-query';
 import { api } from '../api/api';
 
-export default function abortAuthentication( status, error, errorDescription, loginId, loginState ) {
-
-  console.log("Arrived abortAuthentication");
+export default function abortAuthentication( status, error, errorDescription, loginId, loginState, setSystemError ) {
 
   const body = {
     "status": status,
@@ -14,22 +12,21 @@ export default function abortAuthentication( status, error, errorDescription, lo
     "login_state": loginState,
   }
 
-  console.log("abortAuthentication body: ", JSON.stringify(body, null, 2) );
-
   api.abortAuthentication(body)
     .then(res => {
       if( res.redirect_to ) {
-        console.log('abortAuthentication Success:', res);
-
         // If you want your UI to return to the ACP failure page, add the following code
+        // NOTE: The UserErrors will not be displayed
         // window.location.replace(res.redirect_to);
       } else {
-        console.log('abortAuthentication Failure:', res)
         throw new Error("abortAuthentication failed")
       }
     })
     .catch(err => {
-      console.log('abortAuthentication Failure:', err);
-      throw new Error(`getSessionAndUser:${err.response.status} ${err.response?.body.message}`)
+      if( err.response?.status && err.response?.status != 200 ) {
+        setSystemError("SystemError:UnexpectedResponse:abortAuthentication",`${err.response?.status} ${err.response?.statusText}`);
+       } else {
+        setSystemError("SystemError:UnexpectedResult:abortAuthentication",err);
+       }
     });
 }

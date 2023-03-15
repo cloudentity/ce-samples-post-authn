@@ -3,10 +3,11 @@ import React, { useState, useEffect } from 'react'
 import getSessionAndUser from "./bff/getSessionAndUser"
 import completeAuthentication from "./bff/completeAuthentication"
 
-import Header from "./components/Header"
-import UserError from "./errors/UserError"
-import Loading from "./components/Loading"
-import Organizations from "./components/Organizations"
+import PageHeader from "./components/PageHeader"
+import OrganizationSelection from "./components/OrganizationSelection"
+import SystemError from "./components/SystemError"
+import UserError from "./components/UserError"
+import LoadingMessage from "./components/LoadingMessage"
 
 let completeSemaphore = 0
 
@@ -17,44 +18,51 @@ export default  function App() {
   const loginState = queryParams.get("login_state")
 
   const [session, setSession] = useState([]);
-  const [sessionLoading, setSessionLoading] = useState(true);
-  const [completeLoading, setCompleteLoading] = useState(true);
-  const [completeError, setCompleteError] = useState("");
-  const [organizationId, setOrganizationId] = useState("")
-  const [userError, setUserError] = useState("");
-  const [userCorrection, setUserCorrection] = useState("");
+  const [systemLoading, setSystemLoading] = useState(true);
+  const [organizationId, setOrganizationId] = useState("");
+  const [userErrorObj, setUserErrorObj] = useState({});
+  const [systemErrorObj, setSystemErrorObj] = useState({});
+
+  function setUserError(code, error, action) {
+    const errorObj = {code: code, error: error, action: action};
+    setUserErrorObj(errorObj)
+  }
+
+  function setSystemError(code, error) {
+    const errorObj = {code: code, error: error};
+    setSystemErrorObj(errorObj);
+  }
 
   useEffect(() => {
-    console.log("Call getSessionAndUser");
-    getSessionAndUser( loginId, loginState, setSession, setSessionLoading, setUserError, setUserCorrection );
-  }, []);
+    getSessionAndUser( loginId, loginState, setSession, setSystemLoading, setUserError, setSystemError  );
+  }, [loginId, loginState]);
+
 
   const handleSubmit = () => {
     const organizationIdSet = ( organizationId === "" ) ? session.organizations.filter((v,i) => i === 0)[0].orgId : organizationId
-    console.log("Submit",session.userId,organizationIdSet)
-    completeAuthentication( organizationIdSet, session.userId, loginId, loginState, setCompleteLoading, setCompleteError )
+    completeAuthentication( organizationIdSet, session.userId, loginId, loginState, setSystemLoading, setSystemError )
   }
 
-  console.log( "sessionLoading: ",sessionLoading)
-  console.log( "session: ",session)
-
-  if( !sessionLoading && session && session.organizations && session.organizations.length === 1 && (++completeSemaphore === 1)) {
+  if( !systemLoading && session && session.organizations && session.organizations.length === 1 && (++completeSemaphore === 1)) {
     handleSubmit()
   }
 
   return (
     <>
-     <Header />
-     <UserError loading={sessionLoading} error={userError} correction={userCorrection}/>
-     <Loading loading={sessionLoading} />
-     <Organizations
-       loading={sessionLoading}
-       error={userError}
-       session={session}
-       organizationId={organizationId}
-       onChange={setOrganizationId}
-       submit={handleSubmit}
-     />
+     <PageHeader />
+     <SystemError errorObj={systemErrorObj}>
+       <UserError errorObj={userErrorObj} loginId={loginId} loginState={loginState} setSystemError={setSystemError}>
+         <LoadingMessage systemLoading={systemLoading}>
+           <OrganizationSelection
+             loading={systemLoading}
+             session={session}
+             organizationId={organizationId}
+             onChange={setOrganizationId}
+             submit={handleSubmit}
+           />
+         </LoadingMessage>
+       </UserError>
+     </SystemError>
     </>
   );
 }

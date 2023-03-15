@@ -1,10 +1,10 @@
-import Debug from "./Debug"
+import DebugObject from "./DebugObject"
 
-export default function Organizations(props) {
+export default function OrganizationSelection(props) {
 
   return (
    <>
-     {!props.loading && (props.error === '') && props.session.organizations.length > 1 &&
+     {props.session.organizations?.length > 1 &&
       <>
       <div className="card">
         <h3 className="header">Just one more step</h3>
@@ -15,7 +15,7 @@ export default function Organizations(props) {
         <br/>
         <button onClick={props.submit} className="button">Submit</button>
       </div>
-      <Debug name="User Organizations" data={props.session}/>
+      <DebugObject name="Session UserId and Organizations" data={props.session}/>
     </>
     }
    </>
