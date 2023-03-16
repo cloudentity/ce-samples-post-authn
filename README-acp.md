@@ -43,3 +43,6 @@ For testing purposes, create a test Identity Pool
 - Enter an `Identity Provider Name`
 - Click the new Identity Pool
 
+### Register your post-authn application
+
+[Register post-auhn applicaiton](https://cloudentity.com/developers/howtos/extensions/custom_apps/)
