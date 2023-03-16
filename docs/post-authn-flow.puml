@@ -43,7 +43,7 @@ group If user found
     post_authn_api -> post_authn_api: Verify Submitted OrganizationId\nis in User Record
   end
   acp_api <- post_authn_api: Complete AuthN
-  acp_api -> post_authn_api: Return redirect_to
+  acp_api -> post_authn_api: Return complete redirect_to
   post_authn_ui <- post_authn_api: Return redirect_to
   post_authn_ui-> post_authn_ui: Execute redirect_to
   acp_ui <- post_authn_ui: Redirect to ACP
@@ -51,6 +51,8 @@ end
 
 group If user not found
   post_authn_api <- customer_api: Return User Not Found
+  acp_api <- post_authn_api: Abort AuthN
+  acp_api -> post_authn_api: Return abort redirect_to
   post_authn_ui <- post_authn_api: Return User Not Found
   post_authn_ui -> post_authn_ui: Display User Error
 end

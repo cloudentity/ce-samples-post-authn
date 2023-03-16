@@ -1,4 +1,4 @@
-import { base, baseWithCustomBaseUrl } from './api-base';
+import { base } from './api-base';
 
 export const api = {
   getSession: (query = null) => base.get({ url: '/session', query }),

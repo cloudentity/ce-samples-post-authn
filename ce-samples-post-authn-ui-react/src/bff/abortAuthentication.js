@@ -1,5 +1,3 @@
-import React from "react"
-import { useQuery } from 'react-query';
 import { api } from '../api/api';
 
 export default function abortAuthentication( status, error, errorDescription, loginId, loginState, setSystemError ) {
@@ -19,14 +17,14 @@ export default function abortAuthentication( status, error, errorDescription, lo
         // NOTE: The UserErrors will not be displayed
         // window.location.replace(res.redirect_to);
       } else {
-        throw new Error("abortAuthentication failed")
+        setSystemError("SystemError:RedirectNotFound:abortAuthentication",res);
       }
     })
     .catch(err => {
-      if( err.response?.status && err.response?.status != 200 ) {
+      if( err.response?.status && err.response?.status !== 200 ) {
         setSystemError("SystemError:UnexpectedResponse:abortAuthentication",`${err.response?.status} ${err.response?.statusText}`);
-       } else {
+      } else {
         setSystemError("SystemError:UnexpectedResult:abortAuthentication",err);
-       }
+      }
     });
 }
